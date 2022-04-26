@@ -14,31 +14,38 @@ class Creature:
             self.health += heal_points
 
     def attack(self, target):
-        target.health -= (self.damage * possibility(self, target))
+        target.health -= (self.damage * does_hit(self, target))
+
+    def take_damage(self):
+        self.health -= self.damage
 
 
 class Wizard(Creature):
     def wiz_lightning(self, target_1, target_2):
         average = (target_1.armor + target_2.armor) // 2
         temp = Creature("temp", 1, 1, average, 1)
-        chance = possibility(self, temp)
+        chance = does_hit(self, temp)
         target_1.health -= (self.damage * chance)
         target_2.health -= (self.damage * chance)
 
 
 class Warrior(Creature):
     def ax(self, target):
-        target.health -= (2 * self.damage * possibility(self, target))
+        target.health -= (2 * self.damage * does_hit(self, target))
 
 
 class Ranger(Creature):
     def boaw_arrow(self, target):
-        target.health -= (self.damage * possibility(self, target))
-        target.health -= (self.damage * possibility(self, target))
+        target.health -= (self.damage * does_hit(self, target))
+        target.health -= (self.damage * does_hit(self, target))
 
 
-def possibility(self, target):
-    rn = random.randint(1, self.chance)
+def possibility(self):
+    return random.randint(1, self.chance)
+
+
+def does_hit(self, target):
+    rn = possibility(self)
     if rn == 1:
         self.take_damage()
         return(rn >= target.armor)
