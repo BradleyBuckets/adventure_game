@@ -50,7 +50,7 @@ def does_hit(self, target, rn):
     if rn == 1:
         self.take_damage()
         return(rn >= target.armor)
-    elif rn == self.chance:
+    elif rn == self.dice:
         return((rn >= target.armor) * 2)
     else:
         return(rn >= target.armor)
