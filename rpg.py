@@ -1,4 +1,5 @@
 import random
+import time
 
 
 class Creature:
@@ -15,6 +16,8 @@ class Creature:
             heal_potion = False
 
     def attack(self, target):
+        time.sleep(2)
+        print(f"{self.name} attacks {target.name}!")
         target.health -= (self.damage * does_hit(self,
                           target, dice_roll(self)))
 
@@ -67,18 +70,6 @@ def does_hit(self, target, rn):
         return(rn >= target.armor)
 
 
-heal_potion = False
-monsters = {"test": ["test", 11, 2, 10, 20],
-            "bot": ["bot", 5, 3, 7, 75],
-            "blob": ["blob", 20, 1, 5, 20], }
-allies = {"wiz": ["wiz", 8, 4, 10, 25]}
-
-x = Creature(monsters["test"])
-y = Creature(monsters["bot"])
-z = Creature(monsters["blob"])
-w = Creature(allies["wiz"])
-
-
 def fight(hero, villain, fight=True):
     print(f"You are fighting against {villain.name}!")
     while fight:
@@ -100,4 +91,42 @@ def fight(hero, villain, fight=True):
             print(f"You were killed by the {villain.name}!")
 
 
-fight(x, z)
+def random_monster():
+    return random.choice(list(monsters.keys()))
+
+
+def gladiator_mode(hero, villain):
+    while True:
+        ready = input("Ready? :")
+        if ready.lower().startswith("y"):
+            fight(hero, villain)
+            break
+
+
+heal_potion = False
+monsters = {"test": ["test", 11, 2, 10, 20],
+            "bot": ["bot", 5, 3, 7, 15],
+            "blob": ["blob", 20, 1, 5, 20], }
+allies = {"wiz": ["wiz", 8, 4, 10, 25]}
+
+instructions = "right now, all you can do is attack in the game"
+
+
+def menu():
+    print("Welcome to the RPG game!")
+    while True:
+        menu = input("Menu: ").lower()
+        if menu == "done":
+            break
+        if menu == "game":
+            enemy = Monster(monsters[random_monster()])
+            hero = Creature(allies["wiz"])
+            name = input("What is your name? :")
+            hero_name = input(f"Hello {name}, what is your hero's name? :")
+            hero.name = hero_name
+            gladiator_mode(hero, enemy)
+        if menu == "help":
+            print(instructions)
+
+
+menu()
