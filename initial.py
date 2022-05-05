@@ -55,7 +55,6 @@ elif hero_class.lower() == "ranger":
 else:
     pass
 
-
 # test the features code
 
 # print("bot health", y.health)
