@@ -2,12 +2,12 @@ import random
 
 
 class Creature:
-    def __init__(self, name="default", health=10, damage=1, armor=10, dice=20):
-        self.name = name
-        self.health = health
-        self.damage = damage
-        self.armor = armor
-        self.dice = dice
+    def __init__(self, stats=["name", 10, 2, 10, 20]):
+        self.name = stats[0]
+        self.health = stats[1]
+        self.damage = stats[2]
+        self.armor = stats[3]
+        self.dice = stats[4]
 
     def heal(self, heal_points):
         if heal_potion == True:
