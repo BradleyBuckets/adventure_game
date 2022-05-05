@@ -1,6 +1,5 @@
 import random
 
-
 class Creature:
     def __init__(self, name="default", health=10, damage=1, armor=10, dice=20):
         self.name = name
